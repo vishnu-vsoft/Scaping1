@@ -45,31 +45,20 @@ namespace Scaping1.Controllers
             document.LoadHtml(htmlSource);
 
             var nodes = document.DocumentNode.SelectNodes("//*[@id=\"gvBkAcInfo\"]");
-            var tables = nodes.Where(x=> x. == "name" && x.).FirstOrDefault();
-
-            nodes.
-            XmlConfigurationExtensions.
+            var table = nodes.Where(x=> x.FirstChild.Name == "#text" );
+            //var nodes1 = document.DocumentNode.SelectNodes("//*[@id=\"GridViewAwbTracking\"]");
 
 
-            tables?.LinePosition 
+
+
             if (nodes != null)
             {
                 foreach (var item in nodes)
                 {
-                    Console.WriteLine(item.InnerHtml);
+                    Console.WriteLine(item.InnerText);
                 }
-                
+
             }
-            //HtmlWeb web = new();
-            //HtmlDocument document = web.Load(htmlSource);
-            //HtmlDocument document = new HtmlDocument();
-            //document.LoadHtml(@"C:\Users\Vishnu_Virtuosoft\Downloads\page.html");
-
-            //var nodes = document.DocumentNode.SelectSingleNode("//*[@id=\"gvBkAcInfo\"]/tbody/tr[2]");
-
-
-            //    Console.WriteLine(nodes.InnerHtml);
-
         }
     }
 }
