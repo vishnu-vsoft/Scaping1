@@ -5,6 +5,11 @@ using HtmlAgilityPack;
 using Microsoft.Azure.Batch.Protocol.Models;
 using PuppeteerSharp;
 using System.Reflection.Metadata;
+using Aspose.Slides.Export.Web;
+using Aspose.Slides;
+using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Scaping1.Models;
 
 namespace Scaping1.Controllers
 {
@@ -22,7 +27,7 @@ namespace Scaping1.Controllers
                 ExecutablePath = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
             };
             
-
+            FlightDetail flightDetail = new FlightDetail();
             var browser = await Puppeteer.LaunchAsync(launchOptions);
             var page = await browser.NewPageAsync();
             await page.GoToAsync("https://6ecargo.goindigo.in/FrmAWBTracking.aspx");
@@ -43,22 +48,20 @@ namespace Scaping1.Controllers
             var htmlSource = await page.GetContentAsync();
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(htmlSource);
+            var rows = document.DocumentNode.SelectNodes("//table[@class='newstyle']/tbody/tr[@class='newstyle-tr']");
 
-            var nodes = document.DocumentNode.SelectNodes("//*[@id=\"gvBkAcInfo\"]");
-            var table = nodes.Where(x=> x.FirstChild.Name == "#text" );
-            //var nodes1 = document.DocumentNode.SelectNodes("//*[@id=\"GridViewAwbTracking\"]");
-
-
-
-
-            if (nodes != null)
+            if (rows != null)
             {
-                foreach (var item in nodes)
+                foreach (var row in rows)
                 {
-                    Console.WriteLine(item.InnerText);
-                }
+                    // Extract values from each cell
+                    var values = row.SelectNodes("td").Where(td => td.Name == "td").Select(td=>td.InnerText.Trim());
 
+                    // Print extracted values
+                    Console.WriteLine(string.Join(", ", values));
+                }
             }
+
         }
     }
 }
