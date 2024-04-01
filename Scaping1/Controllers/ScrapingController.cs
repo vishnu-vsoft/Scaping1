@@ -48,17 +48,20 @@ namespace Scaping1.Controllers
             var htmlSource = await page.GetContentAsync();
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(htmlSource);
-            var rows = document.DocumentNode.SelectNodes("//table[@class='newstyle']/tbody/tr[@class='newstyle-tr']");
-
+            var rows = document.DocumentNode.SelectNodes("//*[@id=\"GridViewAwbTracking\"]");
+            //var nextRow = document.DocumentNode.SelectNodes("//*[@id=\"pnlShowData\"]/div[2]/div/div[2]/table");
+            //var NewRowValues = nextRow.Descendants().Select(x=>x.NextSibling);
+            //Console.WriteLine(NewRowValues);
             if (rows != null)
             {
                 foreach (var row in rows)
                 {
                     // Extract values from each cell
-                    var values = row.SelectNodes("td").Where(td => td.Name == "td").Select(td=>td.InnerText.Trim());
+                    HtmlNode values = row.SelectSingleNode(".//td[5]");
+                    flightDetail.Number = values.InnerText.Trim();
 
                     // Print extracted values
-                    Console.WriteLine(string.Join(", ", values));
+                    Console.WriteLine(flightDetail.Number);
                 }
             }
 
