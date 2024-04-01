@@ -2,12 +2,12 @@
 {
     public class AWBStatus
     {
-        public string LastActivity { get; set; } = string.Empty;
-        public string LastActivityDate { get; set; } = string.Empty;
+        public string LastActivity { get; set; } = string.Empty;//
+        public string LastActivityDate { get; set; } = string.Empty;//
         public string DONo { get; set; } = string.Empty;
         public string DownloadLink { get; set; } = string.Empty;
-        public string AWB { get; set; } = string.Empty;
-        public string Pieces { get; set; } = string.Empty;
+        public string AWB { get; set; } = string.Empty;//
+        public string Pieces { get; set; } = string.Empty;//
         public string Status { get; set; } = string.Empty;
         public string Weight { get; set; } = string.Empty;
         public string Flights { get; set; } = string.Empty;
